@@ -1,36 +1,51 @@
 #include <iostream>
 #include <vector>
-
+#include <queue>
+#include <algorithm>
+#include <memory.h>
 using namespace std;
-#define MAX 100001
 
-int N;
-int arr[MAX];
-bool visited[MAX];
-vector<int> v[MAX];
+queue<int> q;
+int parent[100001];
+bool visited[100001];
+vector<int> connection[100001];
 
-void dfs(int k) {
-    visited[k]=true;
-    for(int i=0;i<v[k].size();i++) {
-        int next = v[k][i];
-        if(!visited[next]) {
-            arr[next]=k;
-            dfs(next);
+void solve() {
+    int n;
+    cin >> n;
+    
+    for (int i=0; i<n-1; i++) {
+        int l, r;
+        cin >> l >> r;
+        connection[l].push_back(r);
+        connection[r].push_back(l);
+    }
+
+    visited[1] = true;
+    q.push(1);
+    while (!q.empty()) {
+        int node = q.front();
+        q.pop();
+
+        for (int i=0; i<connection[node].size(); i++) {
+            int next_node = connection[node][i];
+            if (!visited[next_node]) {
+                parent[next_node] = node;
+                visited[next_node] = true;
+                q.push(next_node); 
+            }
         }
+    }
+
+    for (int i=2; i<=n; i++) {
+        cout << parent[i] << "\n";
     }
 }
 
 int main() {
-    cin >> N;
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
 
-    for(int i=0;i<N;i++) {
-        int x,y;
-        cin >> x >> y;
-        v[x].push_back(y);
-        v[y].push_back(x);
-    }
-
-    dfs(1);
-
-    for(int i=2;i<=N;i++) cout << arr[i] << "\n";
+    solve();
+    return 0;
 }
