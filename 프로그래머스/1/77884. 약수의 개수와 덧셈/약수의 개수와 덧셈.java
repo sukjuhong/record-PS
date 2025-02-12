@@ -3,20 +3,24 @@ class Solution {
         int answer = 0;
         
         for (int i=left; i<=right; i++) {
-            int cnt = countMeasure(i);
-            if (cnt % 2 == 0) {
+            int count = getMeasureCount(i);
+            if (count % 2 == 0) {
                 answer += i;
-            } else answer -= i;
+            } else {
+                answer -= i;
+            }
         }
         
         return answer;
     }
     
-    public int countMeasure(int x) {
-        int cnt = 0;
-        for (int i=1; i<=x; i++) {
-            if (x % i == 0) cnt++;
-        } 
-        return cnt;
+    public int getMeasureCount(int num) {
+        int result = 0;
+        for (int i=1; i<=num; i++) {
+            if (num % i == 0) {
+                result++;
+            }
+        }
+        return result;
     }
 }
