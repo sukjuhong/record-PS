@@ -9,10 +9,7 @@ function solution(n, wires) {
     
     for (const edge of wires) {
         const lCnt = getNodeCount(n, graph, edge[0], edge)
-        const rCnt = getNodeCount(n, graph, edge[1], edge)
-        
-        console.log("lCnt: ", lCnt)
-        console.log("rCnt: ", rCnt)
+        const rCnt = n - lCnt
         
         const diff = Math.abs(lCnt - rCnt)
         answer = Math.min(answer, diff)
