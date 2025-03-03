@@ -11,7 +11,5 @@ function dp(triangle, memo, size, i, j) {
     
    if (memo[i][j] !== 0) return memo[i][j]
     
-   const result = triangle[i][j] + Math.max(dp(triangle, memo, size, i+1, j), dp(triangle, memo, size, i+1, j+1));
-   memo[i][j] = result;
-    return result;
+   return memo[i][j] = triangle[i][j] + Math.max(dp(triangle, memo, size, i+1, j), dp(triangle, memo, size, i+1, j+1));
 }
